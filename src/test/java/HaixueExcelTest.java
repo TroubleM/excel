@@ -58,11 +58,11 @@ public class HaixueExcelTest {
 
 
     /**
-     * @Description 导出数据并不设置样式(注解在OrderRecordingRuleExportExcelVo上)
-     * @Author TroubleMan
-     * @date 2018/5/11 10:13
-     * @param
-     * @return
+     * @Author zhangyi
+     * @Description: 导出数据并不设置样式(注解在OrderRecordingRuleExportExcelVo上)
+     * @Date  2018/9/27
+     * @Param []
+     * @return void
      **/
 
     @Test
