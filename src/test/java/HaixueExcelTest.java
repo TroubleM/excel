@@ -37,7 +37,7 @@ public class HaixueExcelTest {
      * @return
      **/
 
-    @Test
+    // @Test
     public void test1() throws Exception {
 
         // 传入List<T>和Class<T>返回数据流对象
@@ -60,12 +60,12 @@ public class HaixueExcelTest {
     /**
      * @Author zhangyi
      * @Description: 导出数据并不设置样式(注解在OrderRecordingRuleExportExcelVo上)
-     * @Date  2018/9/27
+     * @Date 2018/9/27
      * @Param []
      * @return void
      **/
 
-    @Test
+    // @Test
     public void test2() throws Exception {
         // 传入List<T>和Class<T>返回数据流对象
         InputStream inputStream = ExcelFactory.produceExcelOfInputStream(this.simulationSelectData2(),
@@ -85,8 +85,8 @@ public class HaixueExcelTest {
 
 
     /**
-     * @Description 导入数据，要求对象中@ExcelColumn注解的name的值与excel表中的列名值一一对应相同， 且如果头标题存在，则添加属性hasHeaderTitle
-     *              = true， 且占位占不止一行，则@ExcelSheet中添加属性：headerTitleHeight = 标题所占单元格长度
+     * @Description 导入数据，要求对象中@ExcelColumn注解的name的值与excel表中的列名值一一对应相同， 且如果头标题存在，则添加属性hasHeaderTitle =
+     *              true， 且占位占不止一行，则@ExcelSheet中添加属性：headerTitleHeight = 标题所占单元格长度
      *              在业务支持的情况下，导入和导出可以用同一个bean
      * @Author TroubleMan
      * @date 2018/5/11 10:50
@@ -94,10 +94,10 @@ public class HaixueExcelTest {
      * @return
      **/
 
-    @Test
+    // @Test
     public void test3() throws Exception {
         // 模拟导出excel文件
-        File file = new File("../excel-handle/src/test/" + "导入测试数据" + ".xlsx");
+        File file = new File("../excel-handle/src/test/" + "导入测试数据" + ".xls");
 
         // 传入输入流InputStream和Class<T>对象，返回一个LeadingExcelResponse<T>对象
         LeadingExcelResponse<OrderRecordingRuleLeadingInExcelVo> leadingExcelResponse = ExcelFactory
@@ -118,7 +118,7 @@ public class HaixueExcelTest {
      * @param
      * @return
      **/
-    @Test
+    // @Test
     public void test4() throws Exception {
 
         HandleExcelResult handleExcelResult =
@@ -182,7 +182,7 @@ public class HaixueExcelTest {
         return list;
     }
 
-    @Test
+    // @Test
     public void test5() {
         List<DefaultTestExcelBean> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -209,7 +209,7 @@ public class HaixueExcelTest {
         }
     }
 
-    @Test
+    // @Test
     public void test6() throws Exception {
         // 传入List<T>和Class<T>返回数据流对象
         InputStream inputStream = ExcelFactory.produceExcelOfInputStream(this.simulationSelectData2());

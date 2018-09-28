@@ -375,7 +375,7 @@ public class InitExcelHandleParam {
      **/
 
     private <T extends BaseExcel> HandleExcelInitColumn initExcelColumnData(Class<T> clazz,
-                                                                            HSSFWorkbook workbook, HandleExcelInitSheet handleExcelInitSheet)
+            HSSFWorkbook workbook, HandleExcelInitSheet handleExcelInitSheet)
             throws InvocationTargetException, InstantiationException, IllegalAccessException,
             NoSuchFieldException {
 
@@ -471,8 +471,9 @@ public class InitExcelHandleParam {
         Row headRow = PoiApiFactory.createRow(sheet, InitConstant.EXCEL_HEAD_ROW_INDEX);
 
         // 获取并执行单元格合并
-        CellManage.getInstance().cellRangeAddress(handleExcelInitHead.getRangeAddress(), sheet,
-                handleExcelInitHead.getHeadCellStyle());
+        CellManage.getInstance()
+                .cellRangeAddress(handleExcelInitHead.getRangeAddress(), sheet,
+                        handleExcelInitHead.getHeadCellStyle());
 
         // 创建文本列列对象
         Cell headCell = PoiApiFactory.createCell(headRow, InitConstant.EXCEL_HEAD_CELL_INDEX);

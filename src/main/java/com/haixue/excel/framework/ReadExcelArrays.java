@@ -91,8 +91,8 @@ public class ReadExcelArrays {
                  * 兼容poi4.0以下写法
                  */
                 /*
-                 * if (null != cell && !cell.equals("") && !(cell.getCellType() ==
-                 * HSSFCell.CELL_TYPE_BLANK)) { headerTitleCell = cell; break; }
+                 * if (null != cell && !cell.equals("") && !(cell.getCellType() == HSSFCell.CELL_TYPE_BLANK))
+                 * { headerTitleCell = cell; break; }
                  */
                 if (null != cell && !cell.equals("") && !(cell.getCellType() == CellType.BLANK)) {
                     headerTitleCell = cell;
@@ -140,7 +140,7 @@ public class ReadExcelArrays {
      * @return
      **/
     private static <T extends BaseExcel> List<T> initColumnDataValues(String[] headCellNames, Sheet sheet,
-                                                                      Class<T> clazz) throws Exception {
+            Class<T> clazz) throws Exception {
         // 类字段属性对象集合
         Field[] fields = duplicateRemovalFieldArrays(clazz);
 
@@ -221,7 +221,7 @@ public class ReadExcelArrays {
                     /**
                      * 兼容poi3.6写法
                      */
-//                    dataCell.setCellType(Cell.CELL_TYPE_STRING);
+                    // dataCell.setCellType(Cell.CELL_TYPE_STRING);
                     dataCell.setCellType(CellType.STRING);
                     if (parameterClazz.isAssignableFrom(BigDecimal.class)) {
                         String value = dataCell.getStringCellValue();

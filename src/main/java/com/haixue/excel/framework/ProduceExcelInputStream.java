@@ -41,32 +41,33 @@ public class ProduceExcelInputStream {
      * @throws Exception
      */
     public static <T extends BaseExcel> InputStream createExcelInputStream(List<T> list,
-                                                                           Class<? extends BaseExcel> clazz) throws Exception {
+
+            Class<? extends BaseExcel> clazz) throws Exception {
         // 验证集合规范
         ValidateExcelHandle.validateExcelWorkBook(clazz);
         return produceInputStream(initFieldValues(list, initExcelArchitecture(clazz), clazz));
     }
 
     /**
+     * @param
+     * @return
      * @Description 返回excel核心对象，供拓展开发
      * @Author TroubleMan
      * @date 2018/5/11 14:30
-     * @param
-     * @return
      **/
     public static <T extends BaseExcel> HSSFWorkbook createExcelHssfWorkbook(List<T> list,
-                                                                             Class<? extends BaseExcel> clazz) throws Exception {
+            Class<? extends BaseExcel> clazz) throws Exception {
         // 验证集合规范
         ValidateExcelHandle.validateExcelWorkBook(clazz);
         return initFieldValues(list, initExcelArchitecture(clazz), clazz);
     }
 
     /**
+     * @param clazz
+     * @return
      * @Description 初始化Excel表结构
      * @Author TroubleMan
      * @date 2018/6/26 18:02
-     * @param clazz
-     * @return
      **/
     public static HandleExcelResult initExcelArchitecture(Class<? extends BaseExcel> clazz) throws Exception {
 
@@ -86,11 +87,11 @@ public class ProduceExcelInputStream {
     }
 
     /**
+     * @param workbook
+     * @return
      * @Description 返回excel文件的输入流
      * @Author TroubleMan
      * @date 2018/6/26 18:03
-     * @param workbook
-     * @return
      **/
     public static InputStream produceInputStream(HSSFWorkbook workbook) throws Exception {
 
@@ -105,16 +106,16 @@ public class ProduceExcelInputStream {
     }
 
     /**
-     * @Description 动态内容拼装
-     * @Author TroubleMan
-     * @date 2018/6/26 18:02
      * @param list
      * @param handleExcelResult
      * @param clazz
      * @return
+     * @Description 动态内容拼装
+     * @Author TroubleMan
+     * @date 2018/6/26 18:02
      **/
     private static <T extends BaseExcel> HSSFWorkbook initFieldValues(List<T> list,
-                                                                      HandleExcelResult handleExcelResult, Class<? extends BaseExcel> clazz) throws Exception {
+            HandleExcelResult handleExcelResult, Class<? extends BaseExcel> clazz) throws Exception {
 
         // 获取风格对象
         HSSFCellStyle textCellStyle = handleExcelResult.getHandleExcelInitText().getTextCellStyle();
