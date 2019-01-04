@@ -3,9 +3,9 @@ package entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.haixue.excel.base.BaseDefaultStyleExcel;
+import com.tm.excel.base.BaseDefaultStyleExcel;
 
-import com.haixue.excel.annotation.*;
+import com.tm.excel.annotation.*;
 
 /**
  * @Author TroubleMan

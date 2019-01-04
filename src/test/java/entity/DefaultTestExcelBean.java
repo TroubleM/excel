@@ -1,8 +1,8 @@
 package entity;
 
-import com.haixue.excel.annotation.ExcelBean;
-import com.haixue.excel.annotation.ExcelColumn;
-import com.haixue.excel.base.BaseDefaultStyleExcel;
+import com.tm.excel.annotation.ExcelBean;
+import com.tm.excel.annotation.ExcelColumn;
+import com.tm.excel.base.BaseDefaultStyleExcel;
 
 @ExcelBean(sheetName = "默认注解ExcelBean测试", headName = "默认注解ExcelBean测试")
 public class DefaultTestExcelBean extends BaseDefaultStyleExcel {

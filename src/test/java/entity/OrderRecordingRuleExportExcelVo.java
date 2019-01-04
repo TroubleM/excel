@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.haixue.excel.annotation.*;
-import com.haixue.excel.base.BaseExcel;
+import com.tm.excel.annotation.*;
+import com.tm.excel.base.BaseExcel;
 
 /**
  * @Author TroubleMan

@@ -1,11 +1,10 @@
-import com.haixue.excel.entity.HandleExcelResult;
-import com.haixue.excel.entity.out.LeadingExcelResponse;
-import com.haixue.excel.framework.ExcelFactory;
-import com.haixue.excel.framework.ProduceExcelInputStream;
+import com.tm.excel.entity.HandleExcelResult;
+import com.tm.excel.entity.out.LeadingExcelResponse;
+import com.tm.excel.framework.ExcelFactory;
+import com.tm.excel.framework.ProduceExcelInputStream;
 import entity.DefaultTestExcelBean;
 import entity.OrderRecordingRuleExportExcelVo;
 import entity.OrderRecordingRuleLeadingInExcelVo;
-import org.junit.Test;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -37,7 +36,7 @@ public class HaixueExcelTest {
      * @return
      **/
 
-    // @Test
+    //@Test
     public void test1() throws Exception {
 
         // 传入List<T>和Class<T>返回数据流对象

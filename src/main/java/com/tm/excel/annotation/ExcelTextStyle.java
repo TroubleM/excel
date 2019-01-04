@@ -1,0 +1,104 @@
+package com.tm.excel.annotation;
+
+import com.tm.excel.constants.CellBackgroundConstant;
+import com.tm.excel.constants.FontTypeConstant;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * @Author TroubleMan
+ * @Date 2018/6/25 11:39
+ * @Description 动态文字风格注解
+ **/
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ExcelTextStyle {
+
+    /**
+     * @Author TroubleMan
+     * @Date 2018/6/25 14:06
+     * @Description 是否标题居中
+     */
+    boolean isCenter() default true;
+
+    /**
+     * @Author TroubleMan
+     * @Date 2018/6/25 14:06
+     * @Description 是否水平居中
+     */
+    boolean isAlignCenter() default true;
+
+    /**
+     * @Author TroubleMan
+     * @Date 2018/6/25 14:06
+     * @Description 是否垂直居中
+     */
+    boolean isVerticalCenter() default true;
+
+    /**
+     * @Author TroubleMan
+     * @Date 2018/6/25 14:06
+     * @Description 字体大小
+     */
+    short textFontSize() default 10;
+
+    /**
+     * @Author TroubleMan
+     * @Date 2018/6/25 14:06
+     * @Description 是否加粗
+     */
+    boolean isBold() default false;
+
+    /**
+     * @Author TroubleMan
+     * @Date 2018/6/25 14:06
+     * @Description 字体类型
+     */
+    String fontType() default FontTypeConstant.BLACK_TYPEFACE;
+
+    /**
+     * @Author TroubleMan
+     * @Date 2018/6/25 14:06
+     * @Description 单元格左边线是否设置
+     */
+    boolean isLeftBorder() default true;
+
+    /**
+     * @Author TroubleMan
+     * @Date 2018/6/25 14:06
+     * @Description 单元格右边线是否设置
+     */
+    boolean isRightBorder() default true;
+
+    /**
+     * @Author TroubleMan
+     * @Date 2018/6/25 14:07
+     * @Description 单元格上边线是否设置
+     */
+    boolean isTopBorder() default true;
+
+    /**
+     * @Author TroubleMan
+     * @Date 2018/6/25 14:07
+     * @Description 单元格下边线是否设置
+     */
+    boolean isBottomBorder() default true;
+
+    /**
+     * @Author TroubleMan
+     * @Date 2018/6/25 14:07
+     * @Description 背景色
+     */
+    short background() default CellBackgroundConstant.WHITE;
+
+    /**
+     * @Author TroubleMan
+     * @Date 2018/6/25 14:07
+     * @Description 单元格的长度
+     */
+    short width() default 0;
+
+}
