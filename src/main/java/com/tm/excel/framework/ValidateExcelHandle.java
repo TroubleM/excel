@@ -1,16 +1,15 @@
 package com.tm.excel.framework;
 
-import com.tm.excel.annotation.ExcelColumn;
-import com.tm.excel.annotation.ExcelBean;
-import com.tm.excel.annotation.ExcelHead;
-import com.tm.excel.annotation.ExcelSheet;
-import com.tm.excel.annotation.ExcelWorkBook;
+import com.tm.excel.annotation.*;
 import com.tm.excel.base.BaseExcel;
+import com.tm.excel.base.BaseReadExcel;
 import com.tm.excel.exception.ExcelCellException;
 import org.apache.commons.collections.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Created with IntelliJ IDEA. Description:检查有关Excel产出的注解 User: Administrator Date: 2017-08-22 Time:
@@ -35,15 +34,32 @@ public class ValidateExcelHandle {
      * @param clazz
      */
     public static void validateExcelWorkBook(Class<? extends BaseExcel> clazz) {
-        if (null == ExcelBean.class) {
-            if (null == clazz.getAnnotation(ExcelWorkBook.class)) {
-                throw new RuntimeException("请检查集合里面的对象是否标注了com.haixue.excel.annotation.ExcelWorkBook注解");
+
+        //先判断对象是用来从excel接收数据还是将数据写入excel，默认为excel类型
+        AtomicReference<Boolean> isReadExcel = new AtomicReference<>(false);
+        Arrays.stream(clazz.getGenericInterfaces()).forEach(type -> {
+            if(type.getTypeName().equals(BaseReadExcel.class.getTypeName())){
+                isReadExcel.set(true);
             }
-            if (null == clazz.getAnnotation(ExcelHead.class)) {
-                throw new RuntimeException("请检查集合里面的对象是否标注了com.haixue.excel.annotation.ExcelHead注解");
+        });
+
+        //读取excel的值注解规范判断
+        if(isReadExcel.get()){
+            if(null == clazz.getAnnotation(ExcelReadBean.class)){
+                throw new RuntimeException("请检查集合里面的对象是否标注了com.tm.excel.annotation.ExcelReadBean注解");
             }
-            if (null == clazz.getAnnotation(ExcelSheet.class)) {
-                throw new RuntimeException("请检查集合里面的对象是否标注了com.haixue.excel.annotation.ExcelSheet注解");
+        }else{
+        //写入excel数据注解规范判断
+            if (null == clazz.getAnnotation(ExcelBean.class)) {
+                if (null == clazz.getAnnotation(ExcelWorkBook.class)) {
+                    throw new RuntimeException("请检查集合里面的对象是否标注了com.tm.excel.annotation.ExcelWorkBook注解");
+                }
+                if (null == clazz.getAnnotation(ExcelHead.class)) {
+                    throw new RuntimeException("请检查集合里面的对象是否标注了com.tm.excel.annotation.ExcelHead注解");
+                }
+                if (null == clazz.getAnnotation(ExcelSheet.class)) {
+                    throw new RuntimeException("请检查集合里面的对象是否标注了com.tm.excel.annotation.ExcelSheet注解");
+                }
             }
         }
     }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tm.excel.annotation.ExcelColumn;
+import com.tm.excel.annotation.ExcelReadBean;
 import com.tm.excel.annotation.ExcelSheet;
 import com.tm.excel.base.BaseExcel;
 import com.tm.excel.constants.InitConstant;
@@ -74,13 +75,17 @@ public class ReadExcelArrays {
 
     public static <T extends BaseExcel> String initHeaderTitleValue(HSSFWorkbook workbook, Class<T> clazz) {
         // 获取ExcelSheet注解
-        ExcelSheet excelSheet = InitExcelHandleParam.getInstance().getExcelSheetAnnotation(clazz);
+        ExcelReadBean excelReadBean = InitExcelHandleParam.getInstance().getExcelReadBeanAnnotation(clazz);
         // 若无标题则直接返回null
-        if (!excelSheet.hasHeaderTitle()) {
+        if (!excelReadBean.hasHeaderTitle()) {
             return null;
         }
         Sheet sheet = workbook.getSheetAt(InitConstant.INIT_SHEET_DEFAULT_INDEX);
-        Integer headerTitleHeight = excelSheet.headerTitleHeight();
+        Integer headerTitleHeight = excelReadBean.headerTitleHeight();
+        //标题高度小于等于0，则返回null
+        if(null == headerTitleHeight || headerTitleHeight <= 0){
+            return null;
+        }
         Cell headerTitleCell = null;
         // 遍历寻找实际写入了标题内容的cell，默认为不为空的第一个cell
         for (int i = 0; i < headerTitleHeight; i++) {
@@ -118,9 +123,9 @@ public class ReadExcelArrays {
         // 定义非标题有效数据的行号
         Integer columnHeaderRowNumber = DEFAULT_FIRST_ROW_NUMBER;
         // 获取ExcelSheet注解
-        ExcelSheet excelSheet = InitExcelHandleParam.getInstance().getExcelSheetAnnotation(clazz);
-        if (excelSheet.hasHeaderTitle()) {
-            columnHeaderRowNumber = columnHeaderRowNumber + excelSheet.headerTitleHeight();
+        ExcelReadBean excelReadBean = InitExcelHandleParam.getInstance().getExcelReadBeanAnnotation(clazz);
+        if (excelReadBean.hasHeaderTitle()) {
+            columnHeaderRowNumber = columnHeaderRowNumber + excelReadBean.headerTitleHeight();
         }
 
         // 列标题行
@@ -141,6 +146,7 @@ public class ReadExcelArrays {
      **/
     private static <T extends BaseExcel> List<T> initColumnDataValues(String[] headCellNames, Sheet sheet,
             Class<T> clazz) throws Exception {
+
         // 类字段属性对象集合
         Field[] fields = duplicateRemovalFieldArrays(clazz);
 
@@ -167,7 +173,7 @@ public class ReadExcelArrays {
             }
         }
         // 返回实际数据集合
-        return packagingAttributeValue(InitExcelHandleParam.getInstance().getExcelSheetAnnotation(clazz),
+        return packagingAttributeValue(InitExcelHandleParam.getInstance().getExcelReadBeanAnnotation(clazz),
                 sheet, clazz, dataCellIndexs, fieldNames, parameterClasses);
     }
 
@@ -201,12 +207,12 @@ public class ReadExcelArrays {
      * @param
      * @return
      **/
-    private static <T extends BaseExcel> List<T> packagingAttributeValue(ExcelSheet excelSheet, Sheet sheet,
+    private static <T extends BaseExcel> List<T> packagingAttributeValue(ExcelReadBean excelReadBean, Sheet sheet,
             Class<T> clazz, int[] dataCellIndexs, String[] fieldNames, Class<T>[] parameterClasses)
             throws Exception {
 
         List<T> resultList = new ArrayList<>();
-        for (int i = excelSheet.headerTitleHeight() + 1; i <= sheet.getLastRowNum(); i++) {
+        for (int i = excelReadBean.headerTitleHeight() + 1; i <= sheet.getLastRowNum(); i++) {
             Row dataRow = sheet.getRow(i);
             // 对象赋值
             Object object = clazz.newInstance();

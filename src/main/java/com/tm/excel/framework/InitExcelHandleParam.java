@@ -1,13 +1,6 @@
 package com.tm.excel.framework;
 
-import com.tm.excel.annotation.ExcelColumn;
-import com.tm.excel.annotation.ExcelBean;
-import com.tm.excel.annotation.ExcelHead;
-import com.tm.excel.annotation.ExcelSheet;
-import com.tm.excel.annotation.ExcelHeadStyle;
-import com.tm.excel.annotation.ExcelColumnStyle;
-import com.tm.excel.annotation.ExcelTextStyle;
-import com.tm.excel.annotation.ExcelDefaultStyle;
+import com.tm.excel.annotation.*;
 import com.tm.excel.base.BaseExcel;
 import com.tm.excel.constants.InitConstant;
 import com.tm.excel.entity.HandleExcelInitSheet;
@@ -176,6 +169,17 @@ public class InitExcelHandleParam {
      **/
     public ExcelSheet getExcelSheetAnnotation(Class<? extends BaseExcel> clazz) {
         return clazz.getAnnotation(ExcelSheet.class);
+    }
+
+    /**
+     * @Author zhangyi
+     * @Description: 获取excelreadbean注解
+     * @Date  2019/1/4
+     * @Param [clazz]
+     * @return java.lang.annotation.Annotation
+     **/
+    public ExcelReadBean getExcelReadBeanAnnotation(Class<? extends BaseExcel> clazz){
+        return clazz.getAnnotation(ExcelReadBean.class);
     }
 
     /**

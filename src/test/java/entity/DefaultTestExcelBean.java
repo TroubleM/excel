@@ -4,7 +4,8 @@ import com.tm.excel.annotation.ExcelBean;
 import com.tm.excel.annotation.ExcelColumn;
 import com.tm.excel.base.BaseDefaultStyleExcel;
 
-@ExcelBean(sheetName = "默认注解ExcelBean测试", headName = "默认注解ExcelBean测试")
+@ExcelBean(sheetName = "默认注解ExcelBean测试", hasHeaderTitle = true,
+        headName = "默认注解ExcelBean测试",headerTitleHeight = 2,headRangeAddress ={0,1,0,4})
 public class DefaultTestExcelBean extends BaseDefaultStyleExcel {
 
     @ExcelColumn(name = "主键")

@@ -19,7 +19,7 @@ public class OrderRecordingRuleLeadingInExcelVo extends BaseDefaultStyleExcel im
 
     private static final long serialVersionUID = -3503924557830102266L;
 
-    /*
+    /**
      * @Author TroubleMan
      * @Date 2018/5/9 11:01
      * @Description  交易流水号
@@ -27,7 +27,7 @@ public class OrderRecordingRuleLeadingInExcelVo extends BaseDefaultStyleExcel im
     @ExcelColumn(name = "交易流水号")
     private String tradeNo;
 
-    /*
+    /**
      * @Author TroubleMan
      * @Date 2018/5/9 11:01
      * @Description  关联订单号
@@ -35,7 +35,7 @@ public class OrderRecordingRuleLeadingInExcelVo extends BaseDefaultStyleExcel im
     @ExcelColumn(name = "关联订单号")
     private String orderNo;
 
-    /*
+    /**
      * @Author TroubleMan
      * @Date 2018/5/9 11:02
      * @Description  交易金额
@@ -43,7 +43,7 @@ public class OrderRecordingRuleLeadingInExcelVo extends BaseDefaultStyleExcel im
     @ExcelColumn(name = "金额")
     private BigDecimal netPayMoney;
 
-    /*
+    /**
      * @Author TroubleMan
      * @Date 2018/5/9 11:01
      * @Description  入账公司名称
@@ -51,7 +51,7 @@ public class OrderRecordingRuleLeadingInExcelVo extends BaseDefaultStyleExcel im
     @ExcelColumn(name = "入账公司")
     private String companyName;
 
-    /*
+    /**
      * @Author TroubleMan
      * @Date 2018/5/9 11:01
      * @Description  支付方式名称
