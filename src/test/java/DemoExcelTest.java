@@ -1,18 +1,18 @@
-import com.tm.excel.entity.HandleExcelResult;
-import com.tm.excel.entity.out.LeadingExcelResponse;
-import com.tm.excel.framework.ExcelFactory;
-import com.tm.excel.framework.ProduceExcelInputStream;
-import entity.DefaultTestExcelBean;
-import entity.OrderRecordingRuleExportExcelVo;
-import entity.OrderRecordingRuleLeadingInExcelVo;
-import entity.ReadExcelTestBean;
-import org.junit.Test;
-
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.tm.excel.entity.HandleExcelResult;
+import com.tm.excel.entity.out.LeadingExcelResponse;
+import com.tm.excel.framework.ExcelFactory;
+import com.tm.excel.framework.ProduceExcelInputStream;
+
+import entity.DefaultTestExcelBean;
+import entity.OrderRecordingRuleExportExcelVo;
+import entity.OrderRecordingRuleLeadingInExcelVo;
+import entity.ReadExcelTestBean;
 
 /**
  * @Author TroubleMan
@@ -183,7 +183,7 @@ public class DemoExcelTest {
         return list;
     }
 
-    @Test
+    //@Test
     public void test5() {
         List<DefaultTestExcelBean> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {

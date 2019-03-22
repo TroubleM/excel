@@ -23,6 +23,13 @@ public @interface ExcelReadBean{
 
     /**
      * @auther: zhangyi
+     * @date: 2019/3/22
+     * @Description: 列表标题是否存在
+     */
+    boolean hasColumnTitle() default true;
+
+    /**
+     * @auther: zhangyi
      * @date: 2019/1/4
      * @Description: 标题所占的单元格高度,默认为0
      */

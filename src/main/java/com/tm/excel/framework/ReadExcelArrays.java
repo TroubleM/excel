@@ -124,6 +124,12 @@ public class ReadExcelArrays {
         Integer columnHeaderRowNumber = DEFAULT_FIRST_ROW_NUMBER;
         // 获取ExcelSheet注解
         ExcelReadBean excelReadBean = InitExcelHandleParam.getInstance().getExcelReadBeanAnnotation(clazz);
+
+        //如果设置列表标题不存在，则直接返回空数组
+        if(null != excelReadBean && !excelReadBean.hasColumnTitle()){
+            return new String[0];
+        }
+
         if (excelReadBean.hasHeaderTitle()) {
             columnHeaderRowNumber = columnHeaderRowNumber + excelReadBean.headerTitleHeight();
         }
@@ -159,15 +165,24 @@ public class ReadExcelArrays {
         // 反射赋值参数类型对象集合
         Class[] parameterClasses = new Class[fields.length];
 
-        // 将excel标题字符串和ExcelColumn的name属性的值一一对应上并排序
-        for (int i = 0; i < fields.length; i++) {
-            fieldNames[i] = fields[i].getName();
-            ExcelColumn excelColumn = fields[i].getDeclaredAnnotation(ExcelColumn.class);
-            if (excelColumn != null) {
+        //若无列标题，则依次录入数据
+        if(null == headCellNames || headCellNames.length <= 0) {
+            for (int i = 0; i < fields.length; i++) {
+                fieldNames[i] = fields[i].getName();
                 parameterClasses[i] = fields[i].getType();
-                for (int j = 0; j < headCellNames.length; j++) {
-                    if (excelColumn.name().equals(headCellNames[j])) {
-                        dataCellIndexs[i] = j;
+                dataCellIndexs[i] = i;
+            }
+        }else{
+            // 将excel标题字符串和ExcelColumn的name属性的值一一对应上并排序
+            for (int i = 0; i < fields.length; i++) {
+                fieldNames[i] = fields[i].getName();
+                ExcelColumn excelColumn = fields[i].getDeclaredAnnotation(ExcelColumn.class);
+                if (excelColumn != null) {
+                    parameterClasses[i] = fields[i].getType();
+                    for (int j = 0; j < headCellNames.length; j++) {
+                        if (excelColumn.name().equals(headCellNames[j])) {
+                            dataCellIndexs[i] = j;
+                        }
                     }
                 }
             }
