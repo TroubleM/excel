@@ -2,6 +2,7 @@ package com.tm.excel.framework;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -61,7 +62,7 @@ public class CellManage {
      * @param:[rangeAddress, sheet, cellStyle]
      * @return:void
      */
-    public void cellRangeAddress(int[] rangeAddress, Sheet sheet, HSSFCellStyle cellStyle) {
+    public void cellRangeAddress(int[] rangeAddress, Sheet sheet, CellStyle cellStyle) {
         if (rangeAddress.length > 0) {
             ValidateExcelHandle.validateRangeAddress(rangeAddress);
             // 进行每行row判断，没有创建，则创建

@@ -13,6 +13,7 @@ import entity.DefaultTestExcelBean;
 import entity.OrderRecordingRuleExportExcelVo;
 import entity.OrderRecordingRuleLeadingInExcelVo;
 import entity.ReadExcelTestBean;
+import org.junit.Test;
 
 /**
  * @Author TroubleMan
@@ -43,7 +44,7 @@ public class DemoExcelTest {
 
         // 传入List<T>和Class<T>返回数据流对象
         InputStream inputStream = ExcelFactory.produceExcelOfInputStream(this.simulationSelectData1(),
-                OrderRecordingRuleLeadingInExcelVo.class);
+                OrderRecordingRuleLeadingInExcelVo.class,"xls");
 
         // 模拟将文件写入test目录下
         File file = new File("../excel-handle/src/test/" + "导出测试默认样式数据" + ".xls");
@@ -66,14 +67,14 @@ public class DemoExcelTest {
      * @return void
      **/
 
-    // @Test
+    //@Test
     public void test2() throws Exception {
         // 传入List<T>和Class<T>返回数据流对象
         InputStream inputStream = ExcelFactory.produceExcelOfInputStream(this.simulationSelectData2(),
-                OrderRecordingRuleExportExcelVo.class);
+                OrderRecordingRuleExportExcelVo.class,"xlsx");
 
         // 模拟将文件写入test目录下
-        File file = new File("../excel-handle/src/test/" + "导出测试无样式数据" + ".xls");
+        File file = new File("../excel-handle/src/test/" + "导出测试无样式数据" + ".xlsx");
         OutputStream os = new FileOutputStream(file);
         int bytesRead;
         byte[] buffer = new byte[8192];
@@ -102,7 +103,7 @@ public class DemoExcelTest {
 
         // 传入输入流InputStream和Class<T>对象，返回一个LeadingExcelResponse<T>对象
         LeadingExcelResponse<ReadExcelTestBean> leadingExcelResponse = ExcelFactory
-                .writeExcelOfInputStream(new FileInputStream(file), ReadExcelTestBean.class);
+                .writeExcelOfInputStream(new FileInputStream(file), ReadExcelTestBean.class,"xls");
 
         // 返回数据包括标题，列名集合以及实际有效业务数据集合
         List<ReadExcelTestBean> list = leadingExcelResponse.getColumnDataValues();
@@ -119,11 +120,11 @@ public class DemoExcelTest {
      * @param
      * @return
      **/
-    // @Test
+     //@Test
     public void test4() throws Exception {
 
         HandleExcelResult handleExcelResult =
-                ProduceExcelInputStream.initExcelArchitecture(OrderRecordingRuleExportExcelVo.class);
+                ProduceExcelInputStream.initExcelArchitecture(OrderRecordingRuleExportExcelVo.class,"xls");
 
         System.out.println(handleExcelResult);
 
@@ -194,7 +195,7 @@ public class DemoExcelTest {
         }
         try {
             InputStream inputStream =
-                    ExcelFactory.produceExcelOfInputStream(list, DefaultTestExcelBean.class);
+                    ExcelFactory.produceExcelOfInputStream(list, DefaultTestExcelBean.class,"xls");
             // 模拟将文件写入test目录下
             File file = new File("../excel-handle/src/test/" + "导出测试默认注解或者继承不同父类数据" + ".xls");
             OutputStream os = new FileOutputStream(file);
@@ -213,9 +214,9 @@ public class DemoExcelTest {
     // @Test
     public void test6() throws Exception {
         // 传入List<T>和Class<T>返回数据流对象
-        InputStream inputStream = ExcelFactory.produceExcelOfInputStream(this.simulationSelectData2());
+        InputStream inputStream = ExcelFactory.produceExcelOfInputStream(this.simulationSelectData2(),"xlsx");
         // 模拟将文件写入test目录下
-        File file = new File("../excel-handle/src/test/" + "导出测试无样式数据" + ".xls");
+        File file = new File("../excel-handle/src/test/" + "导出测试无样式数据" + ".xlsx");
         OutputStream os = new FileOutputStream(file);
         int bytesRead;
         byte[] buffer = new byte[8192];

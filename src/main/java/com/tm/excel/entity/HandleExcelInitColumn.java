@@ -2,6 +2,7 @@ package com.tm.excel.entity;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class HandleExcelInitColumn {
      * @Date 2018/6/25 14:21
      * @Description 列风格对象
      */
-    private HSSFCellStyle columnCellStyle;
+    private CellStyle columnCellStyle;
 
     /**
      * @Author TroubleMan
@@ -54,14 +55,6 @@ public class HandleExcelInitColumn {
      * @Description 赋值的单元格索引集合数组
      */
     private int[] valueCellColumnIndex;
-
-    public HSSFCellStyle getColumnCellStyle() {
-        return columnCellStyle;
-    }
-
-    public void setColumnCellStyle(HSSFCellStyle columnCellStyle) {
-        this.columnCellStyle = columnCellStyle;
-    }
 
     public List<String> getColumnNames() {
         return columnNames;
@@ -85,6 +78,14 @@ public class HandleExcelInitColumn {
 
     public void setColumnCells(List<Cell> columnCells) {
         this.columnCells = columnCells;
+    }
+
+    public CellStyle getColumnCellStyle() {
+        return columnCellStyle;
+    }
+
+    public void setColumnCellStyle(CellStyle columnCellStyle) {
+        this.columnCellStyle = columnCellStyle;
     }
 
     public Integer getMaxCells() {

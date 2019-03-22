@@ -1,12 +1,14 @@
 package com.tm.excel.framework;
 
+import java.io.InputStream;
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-
-import java.io.InputStream;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * @Author TroubleMan
@@ -22,9 +24,12 @@ public class PoiApiFactory {
      * @Author TroubleMan
      * @date 2018/5/9 17:35
      **/
-    public static HSSFWorkbook createHssfWorkbook() {
-        return new HSSFWorkbook();
+    public static Workbook createWorkbook(String suffix){
+        return suffix.equals("xls") ? new HSSFWorkbook()
+                : new XSSFWorkbook();
     }
+
+
 
     /**
      * @param
@@ -33,9 +38,10 @@ public class PoiApiFactory {
      * @Author TroubleMan
      * @date 2018/5/9 17:35
      **/
-    public static HSSFWorkbook createHssfWorkbook(InputStream inputStream) throws Exception {
+    public static Workbook createWorkbook(InputStream inputStream,String suffix) throws Exception {
 
-        return new HSSFWorkbook(new POIFSFileSystem(inputStream));
+        return suffix.equals("xls") ? new HSSFWorkbook(new POIFSFileSystem(inputStream))
+                : new XSSFWorkbook(inputStream);
     }
 
     /**
@@ -45,7 +51,7 @@ public class PoiApiFactory {
      * @Author TroubleMan
      * @date 2018/9/5 14:31
      **/
-    public static Sheet createSheet(HSSFWorkbook workbook, String sheetName) {
+    public static Sheet createSheet(Workbook workbook, String sheetName) {
         return workbook.createSheet(sheetName);
     }
 

@@ -5,6 +5,7 @@ import com.tm.excel.entity.out.LeadingExcelResponse;
 import com.tm.excel.exception.ExcelParamException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.InputStream;
 import java.util.List;
@@ -24,9 +25,10 @@ public class ExcelFactory {
      * @param clazz
      * @throws Exception
      **/
-    public static <T extends BaseExcel> InputStream produceExcelOfInputStream(List<T> list, Class<T> clazz)
+    public static <T extends BaseExcel> InputStream produceExcelOfInputStream(List<T> list, Class<T> clazz,
+                                                                              String suffix)
             throws Exception {
-        return ProduceExcelInputStream.createExcelInputStream(list, clazz);
+        return ProduceExcelInputStream.createExcelInputStream(list, clazz, suffix);
     }
 
     /**
@@ -35,11 +37,11 @@ public class ExcelFactory {
      * @date 2018/9/5 10:53
      * @param list
      **/
-    public static <T extends BaseExcel> InputStream produceExcelOfInputStream(List<T> list) throws Exception {
+    public static <T extends BaseExcel> InputStream produceExcelOfInputStream(List<T> list,String suffix) throws Exception {
         if (CollectionUtils.isEmpty(list)) {
             throw new ExcelParamException("导出Excel时集合为空或者长度为0");
         }
-        return ProduceExcelInputStream.createExcelInputStream(list, list.get(0).getClass());
+        return ProduceExcelInputStream.createExcelInputStream(list, list.get(0).getClass(),suffix);
     }
 
     /**
@@ -49,9 +51,10 @@ public class ExcelFactory {
      * @param list
      * @param clazz
      **/
-    public static <T extends BaseExcel> HSSFWorkbook produceExcelOfHssfWorkbook(List<T> list, Class<T> clazz)
+    public static <T extends BaseExcel> Workbook produceExcelOfHssfWorkbook(List<T> list, Class<T> clazz,
+                                                                            String suffix)
             throws Exception {
-        return ProduceExcelInputStream.createExcelHssfWorkbook(list, clazz);
+        return ProduceExcelInputStream.createExcelWorkbook(list, clazz,suffix);
     }
 
     /**
@@ -60,12 +63,13 @@ public class ExcelFactory {
      * @date 2018/5/11 14:29
      * @param list
      **/
-    public static <T extends BaseExcel> HSSFWorkbook produceExcelOfHssfWorkbook(List<T> list)
+    public static <T extends BaseExcel> Workbook produceExcelOfHssfWorkbook(List<T> list,
+                                                                            String suffix)
             throws Exception {
         if (CollectionUtils.isEmpty(list)) {
             throw new ExcelParamException("导出Excel时集合为空或者长度为0");
         }
-        return ProduceExcelInputStream.createExcelHssfWorkbook(list, list.get(0).getClass());
+        return ProduceExcelInputStream.createExcelWorkbook(list, list.get(0).getClass(),suffix);
     }
 
     /**
@@ -76,8 +80,8 @@ public class ExcelFactory {
      * @param clazz
      **/
     public static <T extends BaseExcel> LeadingExcelResponse<T> writeExcelOfInputStream(
-            InputStream inputStream, Class<T> clazz) throws Exception {
-        return ReadExcelArrays.writeExcelOfArray(inputStream, clazz);
+            InputStream inputStream, Class<T> clazz,String suffix) throws Exception {
+        return ReadExcelArrays.writeExcelOfArray(inputStream, clazz, suffix);
     }
 
 }

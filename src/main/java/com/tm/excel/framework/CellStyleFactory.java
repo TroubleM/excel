@@ -6,10 +6,8 @@ import com.tm.excel.entity.temporary.StyleAttribute;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.*;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -38,7 +36,7 @@ public class CellStyleFactory {
      * @return
      **/
 
-    public static HSSFCellStyle createHeadCellStyle(HSSFWorkbook workBook, Class<? extends BaseExcel> clazz)
+    public static CellStyle createHeadCellStyle(Workbook workBook, Class<? extends BaseExcel> clazz)
             throws InvocationTargetException, IllegalAccessException, NoSuchFieldException,
             InstantiationException {
         return initHssfCellStyle(workBook,
@@ -54,8 +52,8 @@ public class CellStyleFactory {
      * @return
      **/
 
-    public static <T extends BaseExcel> HSSFCellStyle createColumnCellStyle(HSSFWorkbook workBook,
-            Class<T> clazz) throws NoSuchFieldException, InstantiationException, IllegalAccessException,
+    public static <T extends BaseExcel> CellStyle createColumnCellStyle(Workbook workBook,
+                                                                            Class<T> clazz) throws NoSuchFieldException, InstantiationException, IllegalAccessException,
             InvocationTargetException {
         return initHssfCellStyle(workBook,
                 initStyleAttribute(InitExcelHandleParam.getExcelColumnStyleAnnotation(clazz)),
@@ -70,7 +68,7 @@ public class CellStyleFactory {
      * @return
      **/
 
-    public static <T extends BaseExcel> HSSFCellStyle createTextCellStyle(HSSFWorkbook workBook,
+    public static <T extends BaseExcel> CellStyle createTextCellStyle(Workbook workBook,
             Class<T> clazz) throws NoSuchFieldException, InstantiationException, IllegalAccessException,
             InvocationTargetException {
         return initHssfCellStyle(workBook,
@@ -114,14 +112,14 @@ public class CellStyleFactory {
      * @return
      **/
 
-    private static HSSFCellStyle initHssfCellStyle(HSSFWorkbook workBook, StyleAttribute styleAttribute,
+    private static CellStyle initHssfCellStyle(Workbook workBook, StyleAttribute styleAttribute,
             Integer fontSizeTypeConstant) {
 
         // 如果属性对象为空，则返回null
         if (null == styleAttribute) {
             return null;
         }
-        HSSFCellStyle cellColumnStyle = workBook.createCellStyle();
+        CellStyle cellColumnStyle = workBook.createCellStyle();
 
         // 自动换行
         cellColumnStyle.setWrapText(styleAttribute.getCenter());
@@ -131,14 +129,14 @@ public class CellStyleFactory {
             /**
              * 兼容Poi3.6写法
              */
-            /* cellColumnStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER); */
+            /*cellColumnStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);*/
             cellColumnStyle.setAlignment(HorizontalAlignment.CENTER);
         }
         if (styleAttribute.getVerticalCenter()) {
             /**
              * 兼容Poi3.6写法
              */
-            /* cellColumnStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); */
+            /*cellColumnStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);*/
             cellColumnStyle.setVerticalAlignment(VerticalAlignment.CENTER);
         }
 
@@ -147,11 +145,11 @@ public class CellStyleFactory {
         /**
          * 兼容Poi3.6写法
          */
-        /* cellColumnStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND); */
+        /*cellColumnStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);*/
         cellColumnStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
         // 列表头字体风格设置
-        HSSFFont fontColumn = workBook.createFont();
+        Font fontColumn = workBook.createFont();
 
         // 字体大小
         if (fontSizeTypeConstant.equals(FontSizeTypeConstant.HEAD_FONT_SIZE)) {

@@ -1,6 +1,6 @@
 package com.tm.excel.entity;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  * @Author TroubleMan
@@ -49,7 +49,7 @@ public class HandleExcelResult {
      * @Date 2018/6/25 14:24
      * @Description Excel操作核心对象
      */
-    private HSSFWorkbook hssfWorkbook;
+    private Workbook workbook;
 
     /**
      * @Description 无参构造私有化
@@ -82,16 +82,16 @@ public class HandleExcelResult {
         this.handleExcelInitText = handleExcelInitText;
     }
 
-    public HSSFWorkbook getHssfWorkbook() {
-        return hssfWorkbook;
-    }
-
-    public void setHssfWorkbook(HSSFWorkbook hssfWorkbook) {
-        this.hssfWorkbook = hssfWorkbook;
-    }
-
     public static HandleExcelResult getInstance() {
         return handleExcelResult;
+    }
+
+    public Workbook getWorkbook() {
+        return workbook;
+    }
+
+    public void setWorkbook(Workbook workbook) {
+        this.workbook = workbook;
     }
 
     public HandleExcelInitSheet getHandleExcelInitSheet() {

@@ -1,15 +1,5 @@
 package com.tm.excel.framework;
 
-import com.tm.excel.annotation.ExcelColumn;
-import com.tm.excel.base.BaseExcel;
-import com.tm.excel.entity.HandleExcelResult;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.util.CellRangeAddress;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -17,6 +7,15 @@ import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+
+import com.tm.excel.annotation.ExcelColumn;
+import com.tm.excel.base.BaseExcel;
+import com.tm.excel.entity.HandleExcelResult;
 
 /**
  * @Author TroubleMan
@@ -42,10 +41,10 @@ public class ProduceExcelInputStream {
      */
     public static <T extends BaseExcel> InputStream createExcelInputStream(List<T> list,
 
-            Class<? extends BaseExcel> clazz) throws Exception {
+            Class<? extends BaseExcel> clazz, String suffix) throws Exception {
         // 验证集合规范
         ValidateExcelHandle.validateExcelWorkBook(clazz);
-        return produceInputStream(initFieldValues(list, initExcelArchitecture(clazz), clazz));
+        return produceInputStream(initFieldValues(list, initExcelArchitecture(clazz,suffix), clazz));
     }
 
     /**
@@ -55,11 +54,11 @@ public class ProduceExcelInputStream {
      * @Author TroubleMan
      * @date 2018/5/11 14:30
      **/
-    public static <T extends BaseExcel> HSSFWorkbook createExcelHssfWorkbook(List<T> list,
-            Class<? extends BaseExcel> clazz) throws Exception {
+    public static <T extends BaseExcel> Workbook createExcelWorkbook(List<T> list,
+            Class<? extends BaseExcel> clazz, String suffix) throws Exception {
         // 验证集合规范
         ValidateExcelHandle.validateExcelWorkBook(clazz);
-        return initFieldValues(list, initExcelArchitecture(clazz), clazz);
+        return initFieldValues(list, initExcelArchitecture(clazz,suffix), clazz);
     }
 
     /**
@@ -69,10 +68,10 @@ public class ProduceExcelInputStream {
      * @Author TroubleMan
      * @date 2018/6/26 18:02
      **/
-    public static HandleExcelResult initExcelArchitecture(Class<? extends BaseExcel> clazz) throws Exception {
+    public static HandleExcelResult initExcelArchitecture(Class<? extends BaseExcel> clazz, String suffix) throws Exception {
 
         // 创建excel的核心对象
-        HSSFWorkbook workbook = PoiApiFactory.createHssfWorkbook();
+        Workbook workbook = PoiApiFactory.createWorkbook(suffix);
 
         // 初始化结构数据
         HandleExcelResult handleExcelResult = initExcelHandleParam.initArchitectureData(clazz, workbook);
@@ -81,7 +80,7 @@ public class ProduceExcelInputStream {
         initExcelHandleParam.initExcelArchitecture(handleExcelResult);
 
         // 设置excel核心对象
-        handleExcelResult.setHssfWorkbook(workbook);
+        handleExcelResult.setWorkbook(workbook);
 
         return handleExcelResult;
     }
@@ -93,7 +92,7 @@ public class ProduceExcelInputStream {
      * @Author TroubleMan
      * @date 2018/6/26 18:03
      **/
-    public static InputStream produceInputStream(HSSFWorkbook workbook) throws Exception {
+    public static InputStream produceInputStream(Workbook workbook) throws Exception {
 
         // 有关返回参数
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -114,11 +113,11 @@ public class ProduceExcelInputStream {
      * @Author TroubleMan
      * @date 2018/6/26 18:02
      **/
-    private static <T extends BaseExcel> HSSFWorkbook initFieldValues(List<T> list,
+    private static <T extends BaseExcel> Workbook initFieldValues(List<T> list,
             HandleExcelResult handleExcelResult, Class<? extends BaseExcel> clazz) throws Exception {
 
         // 获取风格对象
-        HSSFCellStyle textCellStyle = handleExcelResult.getHandleExcelInitText().getTextCellStyle();
+        CellStyle textCellStyle = handleExcelResult.getHandleExcelInitText().getTextCellStyle();
 
         // 获取标注有ExcelColumn注解的字段
         List<Field> fields = InitExcelHandleParam.getEffectiveFields(clazz);
@@ -197,7 +196,7 @@ public class ProduceExcelInputStream {
                 }
             }
         }
-        return handleExcelResult.getHssfWorkbook();
+        return handleExcelResult.getWorkbook();
     }
 
 }

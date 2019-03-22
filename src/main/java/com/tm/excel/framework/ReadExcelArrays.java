@@ -16,11 +16,9 @@ import com.tm.excel.constants.InitConstant;
 import com.tm.excel.entity.out.LeadingExcelResponse;
 import com.tm.excel.exception.ExcelCellException;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.*;
 
 /**
  * @Author TroubleMan
@@ -46,12 +44,12 @@ public class ReadExcelArrays {
      **/
 
     public static <T extends BaseExcel> LeadingExcelResponse writeExcelOfArray(InputStream inputStream,
-            Class<T> clazz) throws Exception {
+            Class<T> clazz,String suffix) throws Exception {
 
         // 验证集合规范
         ValidateExcelHandle.validateExcelWorkBook(clazz);
 
-        HSSFWorkbook workbook = PoiApiFactory.createHssfWorkbook(inputStream);
+        Workbook workbook = PoiApiFactory.createWorkbook(inputStream,suffix);
 
         Sheet sheet = workbook.getSheetAt(InitConstant.INIT_SHEET_DEFAULT_INDEX);
 
@@ -73,7 +71,7 @@ public class ReadExcelArrays {
      * @return
      **/
 
-    public static <T extends BaseExcel> String initHeaderTitleValue(HSSFWorkbook workbook, Class<T> clazz) {
+    public static <T extends BaseExcel> String initHeaderTitleValue(Workbook workbook, Class<T> clazz) {
         // 获取ExcelSheet注解
         ExcelReadBean excelReadBean = InitExcelHandleParam.getInstance().getExcelReadBeanAnnotation(clazz);
         // 若无标题则直接返回null
@@ -95,10 +93,10 @@ public class ReadExcelArrays {
                 /**
                  * 兼容poi4.0以下写法
                  */
-                /*
-                 * if (null != cell && !cell.equals("") && !(cell.getCellType() == HSSFCell.CELL_TYPE_BLANK))
-                 * { headerTitleCell = cell; break; }
-                 */
+/*
+                if (null != cell && !cell.equals("") && !(cell.getCellType() == HSSFCell.CELL_TYPE_BLANK))
+                { headerTitleCell = cell; break; }*/
+
                 if (null != cell && !cell.equals("") && !(cell.getCellType() == CellType.BLANK)) {
                     headerTitleCell = cell;
                     break;
@@ -242,7 +240,7 @@ public class ReadExcelArrays {
                     /**
                      * 兼容poi3.6写法
                      */
-                    // dataCell.setCellType(Cell.CELL_TYPE_STRING);
+                    /*dataCell.setCellType(Cell.CELL_TYPE_STRING);*/
                     dataCell.setCellType(CellType.STRING);
                     if (parameterClazz.isAssignableFrom(BigDecimal.class)) {
                         String value = dataCell.getStringCellValue();

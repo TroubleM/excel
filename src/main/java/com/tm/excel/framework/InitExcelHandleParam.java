@@ -1,26 +1,19 @@
 package com.tm.excel.framework;
 
-import com.tm.excel.annotation.*;
-import com.tm.excel.base.BaseExcel;
-import com.tm.excel.constants.InitConstant;
-import com.tm.excel.entity.HandleExcelInitSheet;
-import com.tm.excel.entity.HandleExcelInitColumn;
-import com.tm.excel.entity.HandleExcelInitHead;
-import com.tm.excel.entity.HandleExcelInitText;
-import com.tm.excel.entity.HandleExcelResult;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.util.CellRangeAddress;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+
+import com.tm.excel.annotation.*;
+import com.tm.excel.base.BaseExcel;
+import com.tm.excel.constants.InitConstant;
+import com.tm.excel.entity.*;
 
 /**
  * @Author TroubleMan
@@ -78,7 +71,7 @@ public class InitExcelHandleParam {
      * @return
      **/
 
-    public HandleExcelResult initArchitectureData(Class<? extends BaseExcel> clazz, HSSFWorkbook workbook)
+    public HandleExcelResult initArchitectureData(Class<? extends BaseExcel> clazz, Workbook workbook)
             throws Exception {
 
         // 获得操作Excel对象
@@ -271,7 +264,7 @@ public class InitExcelHandleParam {
      * @return
      **/
 
-    private HandleExcelInitSheet initExcelSheetData(Class<? extends BaseExcel> clazz, HSSFWorkbook workbook) {
+    private HandleExcelInitSheet initExcelSheetData(Class<? extends BaseExcel> clazz, Workbook workbook) {
 
         final HandleExcelInitSheet handleExcelInitSheet = new HandleExcelInitSheet();
         final String sheetName;
@@ -311,7 +304,7 @@ public class InitExcelHandleParam {
      * @return
      **/
 
-    private <T extends BaseExcel> HandleExcelInitHead initExcelHeadData(Class<T> clazz, HSSFWorkbook workbook)
+    private <T extends BaseExcel> HandleExcelInitHead initExcelHeadData(Class<T> clazz, Workbook workbook)
             throws InvocationTargetException, IllegalAccessException, NoSuchFieldException,
             InstantiationException {
 
@@ -379,7 +372,7 @@ public class InitExcelHandleParam {
      **/
 
     private <T extends BaseExcel> HandleExcelInitColumn initExcelColumnData(Class<T> clazz,
-            HSSFWorkbook workbook, HandleExcelInitSheet handleExcelInitSheet)
+            Workbook workbook, HandleExcelInitSheet handleExcelInitSheet)
             throws InvocationTargetException, InstantiationException, IllegalAccessException,
             NoSuchFieldException {
 
@@ -443,7 +436,7 @@ public class InitExcelHandleParam {
      * @return
      **/
 
-    private <T extends BaseExcel> HandleExcelInitText initExcelTextData(Class<T> clazz, HSSFWorkbook workbook)
+    private <T extends BaseExcel> HandleExcelInitText initExcelTextData(Class<T> clazz, Workbook workbook)
             throws InvocationTargetException, InstantiationException, IllegalAccessException,
             NoSuchFieldException {
         HandleExcelInitText handleExcelInitText = new HandleExcelInitText();
@@ -502,7 +495,7 @@ public class InitExcelHandleParam {
         HandleExcelInitColumn handleExcelInitColumn = handleExcelResult.getHandleExcelInitColumn();
 
         // 获取风格对象
-        HSSFCellStyle columnCellStyle = handleExcelInitColumn.getColumnCellStyle();
+        CellStyle columnCellStyle = handleExcelInitColumn.getColumnCellStyle();
 
         // 获取列表头名文字集合
         List<String> columnNames = handleExcelInitColumn.getColumnNames();

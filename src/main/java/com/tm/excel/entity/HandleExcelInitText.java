@@ -1,6 +1,7 @@
 package com.tm.excel.entity;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
 
 /**
  * @Author TroubleMan
@@ -14,13 +15,13 @@ public class HandleExcelInitText {
      * @Date 2018/6/25 14:23
      * @Description 正文单元格集合
      */
-    private HSSFCellStyle textCellStyle;
+    private CellStyle textCellStyle;
 
-    public HSSFCellStyle getTextCellStyle() {
+    public CellStyle getTextCellStyle() {
         return textCellStyle;
     }
 
-    public void setTextCellStyle(HSSFCellStyle textCellStyle) {
+    public void setTextCellStyle(CellStyle textCellStyle) {
         this.textCellStyle = textCellStyle;
     }
 }

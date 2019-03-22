@@ -2,6 +2,7 @@ package com.tm.excel.entity;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class HandleExcelInitHead {
      * @Date 2018/6/25 14:22
      * @Description 头标题处风格对象
      */
-    private HSSFCellStyle headCellStyle;
+    private CellStyle headCellStyle;
 
     /**
      * @Author TroubleMan
@@ -54,22 +55,6 @@ public class HandleExcelInitHead {
      * @Description 最大行数
      */
     private Integer maxRows;
-
-    public HSSFCellStyle getHeadCellStyle() {
-        return headCellStyle;
-    }
-
-    public void setHeadCellStyle(HSSFCellStyle headCellStyle) {
-        this.headCellStyle = headCellStyle;
-    }
-
-    public int[] getRangeAddress() {
-        return rangeAddress;
-    }
-
-    public void setRangeAddress(int[] rangeAddress) {
-        this.rangeAddress = rangeAddress;
-    }
 
     public String getHeadTitle() {
         return headTitle;
@@ -93,6 +78,22 @@ public class HandleExcelInitHead {
 
     public void setHeadCells(List<Cell> headCells) {
         this.headCells = headCells;
+    }
+
+    public int[] getRangeAddress() {
+        return rangeAddress;
+    }
+
+    public void setRangeAddress(int[] rangeAddress) {
+        this.rangeAddress = rangeAddress;
+    }
+
+    public CellStyle getHeadCellStyle() {
+        return headCellStyle;
+    }
+
+    public void setHeadCellStyle(CellStyle headCellStyle) {
+        this.headCellStyle = headCellStyle;
     }
 
     public Integer getMaxRows() {
