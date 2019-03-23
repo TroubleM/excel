@@ -2,6 +2,7 @@ package com.tm.excel.framework;
 
 import java.io.InputStream;
 
+import com.tm.excel.constants.ExcelVersionConstant;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
@@ -25,7 +26,7 @@ public class PoiApiFactory {
      * @date 2018/5/9 17:35
      **/
     public static Workbook createWorkbook(String suffix){
-        return suffix.equals("xls") ? new HSSFWorkbook()
+        return suffix.equals(ExcelVersionConstant.EXCEL_VERsion_XLS) ? new HSSFWorkbook()
                 : new XSSFWorkbook();
     }
 
@@ -40,7 +41,8 @@ public class PoiApiFactory {
      **/
     public static Workbook createWorkbook(InputStream inputStream,String suffix) throws Exception {
 
-        return suffix.equals("xls") ? new HSSFWorkbook(new POIFSFileSystem(inputStream))
+        return suffix.equals(ExcelVersionConstant.EXCEL_VERsion_XLS) ?
+                new HSSFWorkbook(new POIFSFileSystem(inputStream))
                 : new XSSFWorkbook(inputStream);
     }
 
